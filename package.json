@@ -2,6 +2,7 @@
   "name": "occasionpro",
   "version": "0.1.0",
   "private": true,
+    "packageManager": "pnpm@9.15.9",
   "description": "OccasionPro — AI-Native Enterprise Event Operating System",
   "engines": {
     "node": ">=20.0.0",
