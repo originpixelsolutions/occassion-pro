@@ -1,0 +1,23 @@
+name = "occasionpro-webhook-relay"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+API_URL = "https://api.occasionpro.in"
+
+[[queues.producers]]
+binding = "WEBHOOK_QUEUE"
+queue = "occasionpro-webhooks"
+
+[[queues.consumers]]
+queue = "occasionpro-webhooks"
+max_batch_size = 10
+max_batch_timeout = 5
+max_retries = 3
+dead_letter_queue = "occasionpro-webhooks-dlq"
+
+[triggers]
+routes = [
+  { pattern = "webhooks.occasionpro.in/*", zone_name = "occasionpro.in" }
+]

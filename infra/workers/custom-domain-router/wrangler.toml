@@ -1,0 +1,31 @@
+name        = "occasionpro-custom-domain-router"
+main        = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+# ── KV Namespaces ──────────────────────────────────────────────────────────────
+# CUSTOM_DOMAINS_KV: key = domain (string), value = tenantSlug (string)
+[[kv_namespaces]]
+binding = "CUSTOM_DOMAINS_KV"
+id      = "REPLACE_WITH_KV_NAMESPACE_ID"
+preview_id = "REPLACE_WITH_KV_PREVIEW_NAMESPACE_ID"
+
+# ── Environment variables ─────────────────────────────────────────────────────
+[vars]
+APP_ORIGIN            = "https://app.occasionpro.in"
+ALLOWED_BASE_DOMAIN   = "occasionpro.in"
+
+# ── Routes ────────────────────────────────────────────────────────────────────
+# 1. Wildcard *.occasionpro.in (short-links, guest portals on subdomains)
+# 2. Custom domains handled by the same worker via the catch-all route
+[[routes]]
+pattern = "*.occasionpro.in/*"
+zone_name = "occasionpro.in"
+
+# ── Production environment ────────────────────────────────────────────────────
+[env.production]
+vars = { APP_ORIGIN = "https://app.occasionpro.in", ALLOWED_BASE_DOMAIN = "occasionpro.in" }
+
+[env.production.kv_namespaces]
+[[env.production.kv_namespaces]]
+binding    = "CUSTOM_DOMAINS_KV"
+id         = "REPLACE_WITH_PRODUCTION_KV_NAMESPACE_ID"

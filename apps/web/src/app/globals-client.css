@@ -1,0 +1,21 @@
+/* Client Portal global styles — separate from main dashboard */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cp-bg: #0a0a0f;
+  --cp-surface: #13131a;
+  --cp-border: rgba(255,255,255,0.08);
+  --cp-accent: #6366f1;
+  --cp-accent-hover: #4f46e5;
+  --cp-text: #f4f4f5;
+  --cp-muted: #71717a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background-color: var(--cp-bg);
+  color: var(--cp-text);
+}

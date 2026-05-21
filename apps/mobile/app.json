@@ -1,0 +1,102 @@
+{
+  "expo": {
+    "name": "OccasionPro",
+    "slug": "occasionpro",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0a0a0a"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "in.occasionpro.app",
+      "buildNumber": "1",
+      "associatedDomains": [
+        "applinks:app.occasionpro.in",
+        "applinks:occasionpro.in"
+      ],
+      "infoPlist": {
+        "NSCameraUsageDescription": "Required for scanning QR codes and capturing photos",
+        "NSLocationWhenInUseUsageDescription": "Required for venue check-in and location-based features",
+        "NSFaceIDUsageDescription": "Required for biometric authentication"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0a0a0a"
+      },
+      "package": "in.occasionpro.app",
+      "versionCode": 1,
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "VIBRATE",
+        "RECEIVE_BOOT_COMPLETED"
+      ],
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "app.occasionpro.in",
+              "pathPrefix": "/"
+            },
+            {
+              "scheme": "https",
+              "host": "occasionpro.in",
+              "pathPrefix": "/"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-secure-store",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow OccasionPro to access camera for QR scanning"
+        }
+      ],
+      [
+        "expo-barcode-scanner",
+        {
+          "cameraPermission": "Allow OccasionPro to access camera to scan barcodes and QR codes"
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#6366f1",
+          "defaultChannel": "default"
+        }
+      ]
+    ],
+    "scheme": "occasionpro",
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "your-eas-project-id"
+      }
+    }
+  }
+}

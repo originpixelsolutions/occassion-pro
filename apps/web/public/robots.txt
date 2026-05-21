@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Block authenticated and portal routes
+Disallow: /dashboard
+Disallow: /super-admin
+Disallow: /api
+Disallow: /guest-portal
+Disallow: /client-portal
+Disallow: /vendor
+Disallow: /checkin
+Disallow: /invite
+Disallow: /onboarding
+
+Sitemap: https://occasionpro.in/sitemap.xml

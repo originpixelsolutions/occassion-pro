@@ -1,0 +1,8 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+allowBuilds:
+  '@nestjs/core': false
+  '@sentry/cli': false
+  '@sentry/profiling-node': false
+  msgpackr-extract: false

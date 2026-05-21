@@ -1,0 +1,25 @@
+name = "occasionpro-white-label-router"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+API_URL = "https://api.occasionpro.in"
+DEFAULT_ORIGIN = "https://app.occasionpro.in"
+
+[[kv_namespaces]]
+binding = "DOMAIN_MAP"
+id = "your-domain-map-kv-id"
+preview_id = "your-domain-map-kv-preview-id"
+
+# Branding token cache — 5-minute TTL entries set at runtime via expirationTtl
+[[kv_namespaces]]
+binding = "BRANDING_CACHE"
+id = "your-branding-cache-kv-id"
+preview_id = "your-branding-cache-kv-preview-id"
+
+[triggers]
+routes = [
+  { pattern = "*.occasionpro.in/*", zone_name = "occasionpro.in" },
+  { pattern = "*/*", zone_name = "occasionpro.in" }
+]

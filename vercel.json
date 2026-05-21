@@ -1,0 +1,5 @@
+{
+  "projects": [
+    { "name": "occasionpro-web", "rootDirectory": "apps/web" }
+  ]
+}

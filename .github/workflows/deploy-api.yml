@@ -1,0 +1,101 @@
+name: Deploy API (Fly.io)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/api/**'
+      - '.github/workflows/deploy-api.yml'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+jobs:
+  deploy:
+    name: Deploy API to Fly.io
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'production' }}
+    concurrency:
+      group: deploy-api-${{ github.event.inputs.environment || 'production' }}
+      cancel-in-progress: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Fly
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Run pre-deploy checks
+        run: |
+          echo "Running health check on current production..."
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://api.occasionpro.in/api/v1/health/live || echo "000")
+          echo "Current prod status: $STATUS"
+
+      - name: Deploy to Fly.io
+        working-directory: apps/api
+        run: |
+          APP_NAME="${{ github.event.inputs.environment == 'staging' && 'occasionpro-api-staging' || 'occasionpro-api' }}"
+          flyctl deploy \
+            --app "$APP_NAME" \
+            --strategy rolling \
+            --wait-timeout 300 \
+            --image-label "${{ github.sha }}"
+
+      - name: Verify deployment
+        run: |
+          sleep 10
+          MAX_RETRIES=5
+          RETRY=0
+          while [ $RETRY -lt $MAX_RETRIES ]; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://api.occasionpro.in/api/v1/health/live || echo "000")
+            if [ "$STATUS" = "200" ]; then
+              echo "✅ Health check passed (status: $STATUS)"
+              exit 0
+            fi
+            RETRY=$((RETRY + 1))
+            echo "Health check attempt $RETRY/$MAX_RETRIES failed (status: $STATUS), retrying in 10s..."
+            sleep 10
+          done
+          echo "❌ Health check failed after $MAX_RETRIES attempts"
+          exit 1
+
+      - name: Rollback on failure
+        if: failure()
+        working-directory: apps/api
+        run: |
+          echo "Deployment failed, rolling back..."
+          flyctl releases rollback --app occasionpro-api
+
+      - name: Notify Slack on success
+        if: success()
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          payload: |
+            {
+              "text": "✅ *OccasionPro API* deployed to ${{ github.event.inputs.environment || 'production' }}\nCommit: `${{ github.sha }}`\nBy: ${{ github.actor }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+      - name: Notify Slack on failure
+        if: failure()
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          payload: |
+            {
+              "text": "❌ *OccasionPro API* deployment FAILED (auto-rollback triggered)\nBranch: ${{ github.ref_name }}\nBy: ${{ github.actor }}\nSee: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

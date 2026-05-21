@@ -1,0 +1,49 @@
+{
+  "name": "occasionpro",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OccasionPro — AI-Native Enterprise Event Operating System",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:web": "turbo run dev --filter=@occasionpro/web",
+    "dev:api": "turbo run dev --filter=@occasionpro/api",
+    "dev:mobile": "turbo run dev --filter=@occasionpro/mobile",
+    "build": "turbo run build",
+    "build:web": "turbo run build --filter=@occasionpro/web",
+    "build:api": "turbo run build --filter=@occasionpro/api",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e",
+    "type-check": "turbo run type-check",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "db:generate": "turbo run db:generate --filter=@occasionpro/database",
+    "db:migrate": "supabase db push",
+    "db:seed": "supabase db seed",
+    "db:types": "supabase gen types typescript --local > packages/database/src/types/database.ts",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@occasionpro/eslint-config": "workspace:*",
+    "@occasionpro/typescript-config": "workspace:*",
+    "eslint": "^8.57.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "turbo": "^2.1.1",
+    "typescript": "^5.4.5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css}": [
+      "prettier --write"
+    ]
+  }
+}

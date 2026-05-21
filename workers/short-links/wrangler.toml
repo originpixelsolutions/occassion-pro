@@ -1,0 +1,30 @@
+name = "occasionpro-short-links"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Routes — handles all traffic on links.occasionpro.in
+routes = [
+  { pattern = "links.occasionpro.in/*", zone_name = "occasionpro.in" }
+]
+
+# KV namespace for caching hot links (reduce DB round-trips)
+[[kv_namespaces]]
+binding = "LINKS_CACHE"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+preview_id = "REPLACE_WITH_PREVIEW_KV_NAMESPACE_ID"
+
+# Environment variables (set secrets via: wrangler secret put SUPABASE_SERVICE_KEY)
+[vars]
+SUPABASE_URL = "https://lndcqdnsllfcnkidhtem.supabase.co"
+CACHE_TTL_SECONDS = "30"
+FALLBACK_API_URL = "https://api.occasionpro.in"
+NOT_FOUND_URL = "https://occasionpro.in/link-not-found"
+EXPIRED_URL = "https://occasionpro.in/link-expired"
+
+# Secrets (set via wrangler secret put):
+#   SUPABASE_SERVICE_KEY  — Supabase service role key (for resolve_short_link RPC)
+
+[observability]
+enabled = true
+head_sampling_rate = 1

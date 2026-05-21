@@ -1,0 +1,57 @@
+name: Deploy Cloudflare Workers
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'infra/workers/**'
+      - '.github/workflows/deploy-workers.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy-white-label-router:
+    name: Deploy White-Label Router
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy White-Label Router
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: infra/workers/white-label-router
+          command: deploy --env production
+          secrets: |
+            DOMAIN_MAP_NAMESPACE_ID
+
+  deploy-r2-upload-handler:
+    name: Deploy R2 Upload Handler
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy R2 Upload Handler
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: infra/workers/r2-upload-handler
+          command: deploy --env production
+
+  deploy-webhook-relay:
+    name: Deploy Webhook Relay
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy Webhook Relay
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: infra/workers/webhook-relay
+          command: deploy --env production

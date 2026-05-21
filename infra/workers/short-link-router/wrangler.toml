@@ -1,0 +1,59 @@
+name = "occasionpro-short-link-router"
+main = "src/index.ts"
+compatibility_date = "2024-06-01"
+compatibility_flags = ["nodejs_compat"]
+
+# ── Build ─────────────────────────────────────────────────────────────────────
+[build]
+command = "pnpm run build"
+
+# ── Production routes — handles links.occasionpro.in ─────────────────────────
+[[routes]]
+pattern = "links.occasionpro.in/*"
+zone_name = "occasionpro.in"
+
+# ── Production vars ───────────────────────────────────────────────────────────
+[vars]
+# Secrets are set via `wrangler secret put <KEY>` — never commit values here
+# SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SUPABASE_ANON_KEY
+ENVIRONMENT = "production"
+SHORT_LINK_DOMAIN = "links.occasionpro.in"
+
+# ── KV namespaces ─────────────────────────────────────────────────────────────
+# HOW TO PROVISION:
+#   1. Run:  wrangler kv:namespace create SHORT_LINKS
+#            wrangler kv:namespace create CUSTOM_DOMAINS_KV
+#   2. Copy the printed `id` values into the fields below.
+#   3. For staging, repeat with --env staging flags and fill in the staging ids.
+#
+# LINK_CACHE: optional edge cache for link resolution (60s TTL)
+# Create with: wrangler kv:namespace create LINK_CACHE
+[[kv_namespaces]]
+binding = "LINK_CACHE"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+# CUSTOM_DOMAINS_KV: branding token cache for white-label domains
+# Create with: wrangler kv:namespace create CUSTOM_DOMAINS_KV
+[[kv_namespaces]]
+binding = "CUSTOM_DOMAINS_KV"
+id = "REPLACE_WITH_CUSTOM_DOMAINS_KV_ID"
+
+# ── Staging environment ───────────────────────────────────────────────────────
+[env.staging]
+name = "occasionpro-short-link-router-staging"
+
+[[env.staging.routes]]
+pattern = "links-staging.occasionpro.in/*"
+zone_name = "occasionpro.in"
+
+[env.staging.vars]
+ENVIRONMENT = "staging"
+SHORT_LINK_DOMAIN = "links-staging.occasionpro.in"
+
+[[env.staging.kv_namespaces]]
+binding = "LINK_CACHE"
+id = "REPLACE_WITH_STAGING_KV_NAMESPACE_ID"
+
+[[env.staging.kv_namespaces]]
+binding = "CUSTOM_DOMAINS_KV"
+id = "REPLACE_WITH_STAGING_CUSTOM_DOMAINS_KV_ID"

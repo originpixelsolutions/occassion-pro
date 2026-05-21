@@ -1,0 +1,15 @@
+{
+  "name": "short-link-router",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:staging": "wrangler deploy --env staging"
+  },
+  "devDependencies": {
+    "wrangler": "^3.60.0",
+    "@cloudflare/workers-types": "^4.20240620.0",
+    "typescript": "^5.4.5"
+  }
+}

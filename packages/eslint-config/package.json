@@ -1,0 +1,12 @@
+{
+  "name": "@occasionpro/eslint-config",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./next": "./next.js",
+    "./nest": "./nest.js",
+    "./react-native": "./react-native.js"
+  }
+}

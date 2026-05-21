@@ -1,0 +1,36 @@
+{
+  "name": "OccasionPro",
+  "short_name": "OccasionPro",
+  "description": "The AI-powered enterprise event operating system",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#7c3aed",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/dashboard.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "OccasionPro Dashboard"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "/"
+}

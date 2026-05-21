@@ -1,0 +1,59 @@
+name: Database Migrations
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/migrations/**'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+jobs:
+  migrate:
+    name: Run Database Migrations
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'production' }}
+    concurrency:
+      group: db-migrations-${{ github.event.inputs.environment || 'production' }}
+      cancel-in-progress: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Run migrations on production
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: |
+          ENV="${{ github.event.inputs.environment || 'production' }}"
+          if [ "$ENV" = "production" ]; then
+            PROJECT_ID="${{ secrets.SUPABASE_PROJECT_ID }}"
+          else
+            PROJECT_ID="${{ secrets.SUPABASE_STAGING_PROJECT_ID }}"
+          fi
+          supabase db push --project-id "$PROJECT_ID" --password "$SUPABASE_DB_PASSWORD"
+
+      - name: Notify on failure
+        if: failure()
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          payload: |
+            {
+              "text": "❌ *OccasionPro DB Migration FAILED* on ${{ github.event.inputs.environment || 'production' }}\nBy: ${{ github.actor }}\nSee: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

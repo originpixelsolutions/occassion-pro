@@ -1,0 +1,28 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "cd ../.. && pnpm turbo build --filter=web",
+  "outputDirectory": ".next",
+  "installCommand": "pnpm install",
+  "env": {
+    "NEXT_PUBLIC_API_URL": "@api_url",
+    "NEXT_PUBLIC_SUPABASE_URL": "@supabase_url",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@supabase_anon_key",
+    "NEXT_PUBLIC_APP_URL": "@app_url",
+    "NEXT_PUBLIC_WEB_URL": "@app_url",
+    "NEXT_PUBLIC_RAZORPAY_KEY_ID": "@razorpay_key_id"
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "https://api.occasionpro.in/api/$1" }
+  ]
+}
