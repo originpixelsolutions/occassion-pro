@@ -23,7 +23,7 @@ import {
 } from './dto/crm.dto';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { TenantGuard } from '../common/guards/tenant.guard';
-import { Roles } from '../../common/decorators/roles.decorator';
+import { Roles } from '../common/decorators/roles.decorator';
 import { RolesGuard } from '../common/guards/roles.guard';
 
 @Controller('crm')
