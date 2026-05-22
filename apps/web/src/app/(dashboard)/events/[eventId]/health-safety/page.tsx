@@ -60,7 +60,7 @@ function getToken(): string {
     if (raw) return JSON.parse(raw)?.access_token ?? ''
   } catch {}
   return ''
-} catch { return '' } }
+}
 function getTenantId() { try { return localStorage.getItem('tenantId') ?? '' } catch { return '' } }
 function hdrs() { return { Authorization: `Bearer ${getToken()}`, 'x-tenant-id': getTenantId(), 'Content-Type': 'application/json' } }
 
