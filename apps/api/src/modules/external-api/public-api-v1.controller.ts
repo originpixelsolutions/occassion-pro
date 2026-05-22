@@ -14,7 +14,7 @@ import {
   HttpCode, HttpStatus,
   ParseIntPipe, DefaultValuePipe,
 } from '@nestjs/common'
-import { Response } from 'express'
+import type { Response } from 'express'
 import { ApiKeyGuard, RequireScope } from './api-key.guard'
 import { ApiKeysService } from './api-keys.service'
 import { SupabaseService } from '../../common/supabase/supabase.service'

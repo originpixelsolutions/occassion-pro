@@ -2,7 +2,7 @@ import {
   Controller, Get, Post, Patch, Delete, Body, Param, Query,
   UseGuards, Req, Res, HttpCode, HttpStatus,
 } from '@nestjs/common'
-import { Response } from 'express'
+import type { Response } from 'express'
 import { ConferenceService } from './conference.service'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { TenantGuard } from '../tenants/guards/tenant.guard'

@@ -10,7 +10,7 @@ import {
   HttpCode, HttpStatus, UnauthorizedException, UseGuards, Request,
   ParseUUIDPipe, Res,
 } from '@nestjs/common'
-import { Response } from 'express'
+import type { Response } from 'express'
 import { GuestPortalService } from './guest-portal.service'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { TenantGuard } from '../auth/guards/tenant.guard'

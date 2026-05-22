@@ -1,7 +1,7 @@
 import {
   Controller, Get, Post, Delete, Body, Param, UseGuards, Req, HttpCode,
 } from '@nestjs/common'
-import { Request } from 'express'
+import type { Request } from 'express'
 import { PaymentService } from './payment.service'
 import { AuthGuard } from '../../common/guards/auth.guard'
 import { WorkspaceRoleGuard } from '../../common/guards/workspace-role.guard'

@@ -1,7 +1,7 @@
 import {
   Controller, Post, Get, Param, Body, Query, Res, UseGuards, HttpCode, HttpStatus,
 } from '@nestjs/common'
-import { Response } from 'express'
+import type { Response } from 'express'
 import { ExportsService, ExportType, ExportFormat } from './exports.service'
 import { AuthGuard } from '../../common/guards/auth.guard'
 import { TenantId } from '../../common/decorators/tenant-id.decorator'

@@ -2,7 +2,7 @@ import {
   Controller, Get, Post, Patch, Delete, Body, Param,
   UseGuards, Request, Res, HttpStatus, Query,
 } from '@nestjs/common'
-import { Response } from 'express'
+import type { Response } from 'express'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { TenantGuard } from '../tenants/guards/tenant.guard'
 import { PostEventService } from './post-event.service'

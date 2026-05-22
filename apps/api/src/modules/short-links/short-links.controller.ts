@@ -3,7 +3,7 @@ import {
   Param, Body, Query, Req, Res,
   UseGuards, HttpCode, HttpStatus,
 } from '@nestjs/common'
-import { Response, Request } from 'express'
+import type { Response, Request } from 'express'
 import { ShortLinksService, CreateShortLinkDto } from './short-links.service'
 import { WorkspaceRoleGuard } from '../../common/guards/workspace-role.guard'
 import { RequireTenantRole } from '../../common/decorators/require-tenant-role.decorator'

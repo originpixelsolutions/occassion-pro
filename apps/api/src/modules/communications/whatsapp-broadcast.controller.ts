@@ -3,7 +3,7 @@ import {
   Query, Req, UseGuards, HttpCode, HttpStatus,
   BadRequestException, RawBodyRequest,
 } from '@nestjs/common'
-import { Request } from 'express'
+import type { Request } from 'express'
 import { ConfigService } from '@nestjs/config'
 import * as crypto from 'crypto'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'

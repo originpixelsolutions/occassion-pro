@@ -1,5 +1,5 @@
 import { Controller, Get, Query, Param, ParseUUIDPipe, UseGuards, Res, Header } from '@nestjs/common'
-import { Response } from 'express'
+import type { Response } from 'express'
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiQuery } from '@nestjs/swagger'
 import { AnalyticsService } from './analytics.service'
 import { AuthGuard } from '../../common/guards/auth.guard'

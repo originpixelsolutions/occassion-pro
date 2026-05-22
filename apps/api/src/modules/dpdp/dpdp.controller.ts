@@ -12,7 +12,7 @@ import {
   UseGuards,
   BadRequestException,
 } from '@nestjs/common'
-import { Request } from 'express'
+import type { Request } from 'express'
 import { DpdpService, ConsentType, RequestType, RequestStatus } from './dpdp.service'
 import { JwtAuthGuard }  from '../../common/guards/jwt-auth.guard'
 import { RolesGuard }    from '../../common/guards/roles.guard'

@@ -3,7 +3,7 @@ import {
   UseGuards, HttpCode, HttpStatus, Headers, RawBodyRequest, Req,
 } from '@nestjs/common'
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger'
-import { Request } from 'express'
+import type { Request } from 'express'
 import { TenantPaymentsService } from './tenant-payments.service'
 import { AuthGuard } from '../../common/guards/auth.guard'
 import { TenantId, AccessToken, CurrentUserId } from '../../common/decorators/tenant.decorator'
