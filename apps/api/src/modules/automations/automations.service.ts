@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, ForbiddenException, Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { SupabaseService } from '../supabase/supabase.service'
+import { SupabaseService } from '../../common/supabase/supabase.service'
 import { EmailService } from '../communications/email.service'
 import { WhatsAppService } from '../communications/whatsapp.service'
 import * as https from 'https'

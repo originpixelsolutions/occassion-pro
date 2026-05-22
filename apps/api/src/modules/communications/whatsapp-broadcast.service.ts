@@ -1,5 +1,5 @@
 import { Injectable, Logger, NotFoundException, BadRequestException } from '@nestjs/common'
-import { SupabaseService } from '../supabase/supabase.service'
+import { SupabaseService } from '../../common/supabase/supabase.service'
 import { WhatsAppService } from './whatsapp.service'
 
 // ─── DTOs ─────────────────────────────────────────────────────────────────────
