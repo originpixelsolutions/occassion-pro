@@ -1,8 +1,8 @@
 {
   "framework": "nextjs",
-  "buildCommand": "cd ../.. && pnpm turbo build --filter=web",
+  "buildCommand": "cd ../.. && npx -y pnpm@9.15.9 turbo build --filter=web",
   "outputDirectory": ".next",
-  "installCommand": "cd ../.. && corepack enable && corepack prepare pnpm@9.15.9 --activate && pnpm install --no-frozen-lockfile",
+  "installCommand": "cd ../.. && npx -y pnpm@9.15.9 install --no-frozen-lockfile",
   "headers": [
     {
       "source": "/(.*)",
