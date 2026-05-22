@@ -2,6 +2,7 @@
   "extends": "@occasionpro/config/typescript/nestjs.json",
   "compilerOptions": {
     "outDir": "./dist",
+    "rootDir": "./src",
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]
