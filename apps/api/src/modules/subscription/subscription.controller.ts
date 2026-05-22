@@ -2,9 +2,10 @@ import {
   Controller, Get, Post, Body, Req, UseGuards, HttpCode, RawBodyRequest,
   Headers, BadRequestException,
 } from '@nestjs/common'
-import { JwtAuthGuard } from '../../guards/jwt-auth.guard'
-import { RolesGuard, Roles } from '../../guards/roles.guard'
-import { Public } from '../../guards/jwt-auth.guard'
+import { AuthGuard } from '../../common/guards/auth.guard'
+import { RolesGuard } from '../../common/guards/roles.guard'
+import { Roles } from '../../common/decorators/roles.decorator'
+import { Public } from '../../common/decorators/public.decorator'
 import { SubscriptionService, PlanSlug } from './subscription.service'
 
 @Controller('subscription')
@@ -36,14 +37,14 @@ export class SubscriptionController {
 
   /** GET /subscription/current — tenant's current plan + usage */
   @Get('current')
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   getCurrent(@Req() req: any) {
     return this.svc.getTenantPlan(req.user.tenantId)
   }
 
   /** POST /subscription/checkout-order — create Razorpay order for upgrade */
   @Post('checkout-order')
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   @Roles('workspace_owner')
   createCheckoutOrder(
     @Req() req: any,
@@ -58,7 +59,7 @@ export class SubscriptionController {
 
   /** POST /subscription/trial — start 14-day Growth trial */
   @Post('trial')
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   @Roles('workspace_owner')
   startTrial(@Req() req: any, @Body() body: { plan?: string }) {
     return this.svc.startTrial(req.user.tenantId, body.plan ?? 'growth')
@@ -67,7 +68,7 @@ export class SubscriptionController {
   /** POST /subscription/cancel */
   @Post('cancel')
   @HttpCode(200)
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   @Roles('workspace_owner')
   cancel(@Req() req: any, @Body() body: { reason?: string }) {
     return this.svc.cancelSubscription(req.user.tenantId, req.user.id, body.reason)
@@ -76,7 +77,7 @@ export class SubscriptionController {
   /** POST /subscription/refresh-usage — update usage counters */
   @Post('refresh-usage')
   @HttpCode(204)
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(AuthGuard, RolesGuard)
   refreshUsage(@Req() req: any) {
     return this.svc.refreshUsage(req.user.tenantId)
   }
