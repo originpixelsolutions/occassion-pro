@@ -146,19 +146,19 @@ export class SMSService {
     switch (providerName) {
       case 'msg91':
         return new MSG91Provider(
-          this.config.getOrThrow('MSG91_AUTH_KEY'),
-          this.config.getOrThrow('MSG91_TEMPLATE_ID'),
+          this.config.get("MSG91_AUTH_KEY", ""),
+          this.config.get("MSG91_TEMPLATE_ID", ""),
         )
       case 'twilio':
         return new TwilioProvider(
-          this.config.getOrThrow('TWILIO_ACCOUNT_SID'),
-          this.config.getOrThrow('TWILIO_AUTH_TOKEN'),
-          this.config.getOrThrow('TWILIO_FROM_NUMBER'),
+          this.config.get("TWILIO_ACCOUNT_SID", ""),
+          this.config.get("TWILIO_AUTH_TOKEN", ""),
+          this.config.get("TWILIO_FROM_NUMBER", ""),
         )
       case 'fast2sms':
       default:
         return new Fast2SMSProvider(
-          this.config.getOrThrow('FAST2SMS_API_KEY'),
+          this.config.get("FAST2SMS_API_KEY", ""),
         )
     }
   }
