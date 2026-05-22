@@ -12,8 +12,8 @@ import {
 } from '@nestjs/common'
 import type { Response } from 'express'
 import { GuestPortalService } from './guest-portal.service'
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
-import { TenantGuard } from '../auth/guards/tenant.guard'
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard'
+import { TenantGuard } from '../common/guards/tenant.guard'
 
 // ─── DTOs ─────────────────────────────────────────────────────────────────────
 

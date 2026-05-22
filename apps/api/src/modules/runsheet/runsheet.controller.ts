@@ -11,8 +11,8 @@ import {
   Request,
 } from '@nestjs/common'
 import { RunsheetService } from './runsheet.service'
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
-import { TenantGuard } from '../auth/guards/tenant.guard'
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard'
+import { TenantGuard } from '../../common/guards/tenant.guard'
 import {
   CreateRunsheetItemDto,
   UpdateRunsheetItemDto,

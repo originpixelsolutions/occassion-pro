@@ -8,6 +8,9 @@ import { Reflector } from '@nestjs/core'
 import type { UserRole } from '@occasionpro/database'
 import { ROLES_KEY } from '../decorators/roles.decorator'
 
+// Re-export decorator for ergonomic single-import usage
+export { Roles } from '../decorators/roles.decorator'
+
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}

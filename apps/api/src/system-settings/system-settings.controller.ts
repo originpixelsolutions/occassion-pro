@@ -4,8 +4,8 @@ import {
 } from '@nestjs/common';
 import { SystemSettingsService } from './system-settings.service';
 import { UpdateSettingDto, BulkUpdateSettingsDto } from './dto/update-setting.dto';
-import { JwtAuthGuard }       from '../auth/guards/jwt-auth.guard';
-import { SuperAdminGuard }    from '../auth/guards/super-admin.guard';
+import { JwtAuthGuard }       from '../common/guards/jwt-auth.guard';
+import { SuperAdminGuard }    from '../common/guards/super-admin.guard';
 
 @Controller('admin/system-settings')
 @UseGuards(JwtAuthGuard, SuperAdminGuard)   // double-guard: JWT + super_admin role check

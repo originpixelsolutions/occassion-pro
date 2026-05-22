@@ -3,8 +3,8 @@ import {
   UseGuards, Request, Res, HttpStatus, Query,
 } from '@nestjs/common'
 import type { Response } from 'express'
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
-import { TenantGuard } from '../tenants/guards/tenant.guard'
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard'
+import { TenantGuard } from '../../common/guards/tenant.guard'
 import { PostEventService } from './post-event.service'
 import {
   UpdateChecklistItemDto, MarkAttendedDto, UpdateSettlementDto,

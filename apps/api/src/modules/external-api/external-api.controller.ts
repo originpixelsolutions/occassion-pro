@@ -7,7 +7,7 @@ import {
 import { ApiKeysService, CreateApiKeyDto, ApproveKeyDto } from './api-keys.service'
 import { WebhooksService, CreateWebhookDto } from './webhooks.service'
 import { AccessRequestsService, CreateAccessRequestDto, ReviewAccessRequestDto } from './access-requests.service'
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard'
 
 @Controller('api-config')
 @UseGuards(JwtAuthGuard)

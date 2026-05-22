@@ -1,8 +1,8 @@
 import {
   Controller, Get, Post, Patch, Delete, Body, Param, Req, HttpCode, UseGuards,
 } from '@nestjs/common'
-import { JwtAuthGuard } from '../../guards/jwt-auth.guard'
-import { RolesGuard, Roles } from '../../guards/roles.guard'
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard'
+import { RolesGuard, Roles } from '../../common/guards/roles.guard'
 import {
   HealthSafetyService, UpsertPlanDto, CreateRiskDto, CreateIncidentDto, CreateChecklistDto,
 } from './health-safety.service'

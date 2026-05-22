@@ -4,7 +4,7 @@ import {
   HttpCode, HttpStatus,
 } from '@nestjs/common'
 import { GiftsService } from './gifts.service'
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard'
 
 @Controller('events/:eventId/gifts')
 @UseGuards(JwtAuthGuard)

@@ -21,10 +21,10 @@ import {
   LeadQueryDto,
   ActivityType,
 } from './dto/crm.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { TenantGuard } from '../auth/guards/tenant.guard';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { TenantGuard } from '../common/guards/tenant.guard';
 import { Roles } from '../../common/decorators/roles.decorator';
-import { RolesGuard } from '../auth/guards/roles.guard';
+import { RolesGuard } from '../common/guards/roles.guard';
 
 @Controller('crm')
 @UseGuards(JwtAuthGuard, TenantGuard)

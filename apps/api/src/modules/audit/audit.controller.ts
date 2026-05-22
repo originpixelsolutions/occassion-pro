@@ -2,8 +2,8 @@ import {
   Controller, Get, Query, Param, Req, Res, UseGuards, HttpStatus,
 } from '@nestjs/common'
 import type { Response } from 'express'
-import { JwtAuthGuard } from '../../guards/jwt-auth.guard'
-import { RolesGuard, Roles } from '../../guards/roles.guard'
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard'
+import { RolesGuard, Roles } from '../../common/guards/roles.guard'
 import { AuditService, AuditQueryDto } from './audit.service'
 
 @Controller('audit')

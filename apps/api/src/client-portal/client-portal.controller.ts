@@ -5,8 +5,8 @@ import {
 } from '@nestjs/common'
 import { ClientPortalService } from './client-portal.service'
 import { ClientPortalAuthGuard } from './client-portal-auth.guard'
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
-import { TenantGuard } from '../auth/guards/tenant.guard'
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard'
+import { TenantGuard } from '../common/guards/tenant.guard'
 
 @Controller('client-portal')
 export class ClientPortalController {

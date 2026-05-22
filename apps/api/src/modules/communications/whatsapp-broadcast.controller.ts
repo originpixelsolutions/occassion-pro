@@ -6,8 +6,8 @@ import {
 import type { Request } from 'express'
 import { ConfigService } from '@nestjs/config'
 import * as crypto from 'crypto'
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
-import { TenantGuard } from '../auth/guards/tenant.guard'
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard'
+import { TenantGuard } from '../../common/guards/tenant.guard'
 import { WhatsAppBroadcastService, CreateBroadcastDto } from './whatsapp-broadcast.service'
 
 @Controller('whatsapp')
