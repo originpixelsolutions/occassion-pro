@@ -874,3 +874,52 @@ export class NotificationsService {
       data:  actionUrl ? { url: actionUrl } : {},
       channelId: 'default',
     }
+
+    const response = await fetch('https://exp.host/--/api/v2/push/send', {
+      method: 'POST',
+      headers: {
+        Accept:         'application/json',
+        'Content-Type': 'application/json',
+        'Accept-Encoding': 'gzip, deflate',
+      },
+      body: JSON.stringify(payload),
+    })
+
+    if (!response.ok) {
+      throw new Error(`Expo push failed: ${response.status} ${await response.text()}`)
+    }
+
+    const result = await response.json()
+    if (result.data?.status === 'error') {
+      throw new Error(`Expo push error: ${result.data.message}`)
+    }
+  }
+
+  private async logDelivery(params: {
+    tenantId:      string
+    recipientId:   string
+    recipientType: RecipientType
+    templateKey:   string
+    eventId:       string | null
+    channel:       NotificationChannel
+    status:        DeliveryStatus
+    errorMessage:  string | null
+    externalId:    string | null
+  }): Promise<void> {
+    try {
+      await this.supabase.serviceClient.from('notification_log').insert({
+        tenant_id:      params.tenantId,
+        recipient_id:   params.recipientId,
+        recipient_type: params.recipientType,
+        template_key:   params.templateKey,
+        event_id:       params.eventId,
+        channel:        params.channel,
+        status:         params.status,
+        error_message:  params.errorMessage,
+        external_id:    params.externalId,
+      })
+    } catch (err) {
+      this.logger.warn(`logDelivery failed: ${err}`)
+    }
+  }
+}
