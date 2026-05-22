@@ -174,4 +174,5 @@ const withPWA = withPWAInit({
   ],
 })
 
-export default withPWA(nextConfig)
+// PWA temporarily disabled during deploy fix
+export default nextConfig
