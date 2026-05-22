@@ -38,7 +38,7 @@
     "@occasionpro/config": "workspace:*",
     "@types/node": "^20.0.0",
     "tsup": "^8.2.0",
-    "typescript": "^5.5.0",
+    "typescript": "5.5.4",
     "supabase": "^1.192.0"
   }
 }
