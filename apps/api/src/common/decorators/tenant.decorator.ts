@@ -56,3 +56,6 @@ export const CurrentUserName = createParamDecorator(
     return profile.full_name ?? profile.display_name ?? profile.email ?? undefined
   },
 )
+
+// Re-export Public decorator so files importing from this module don't break
+export { IS_PUBLIC_KEY, Public } from './public.decorator'
