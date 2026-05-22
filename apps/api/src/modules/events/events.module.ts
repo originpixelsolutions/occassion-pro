@@ -11,4 +11,8 @@ import { RunsheetService } from './runsheet/runsheet.service'
 
 @Module({
   imports: [NotificationsModule],
-  controllers: [EventsController, EventAccessController, TasksContr
+  controllers: [EventsController, EventAccessController, TasksController, RunsheetController],
+  providers: [EventsService, EventAccessService, TasksService, RunsheetService],
+  exports: [EventsService],
+})
+export class EventsModule {}
