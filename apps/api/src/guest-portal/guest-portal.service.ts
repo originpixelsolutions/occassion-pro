@@ -1,5 +1,5 @@
 /**
- * OccasionPro — Guest Portal Service
+ * OccasionPro â Guest Portal Service
  * OTP generation/verification, session management, portal data assembly
  */
 
@@ -114,7 +114,7 @@ export class GuestPortalService {
       event: { id: event.id, title: event.title, start_date: event.start_date, end_date: event.end_date, venue_name: event.venue_name, venue_address: event.venue_address, status: event.status },
       guest: guest ? { id: guest.id, name: guest.full_name, rsvp_status: guest.rsvp_status, check_in_status: guest.check_in_status, table_number: guest.table_number, meal_preference: guest.meal_preference, portal_code: guest.portal_access_code, has_accommodation: !!guest.accommodation_room_id } : null,
       settings: {
-        portal_title: settings.portal_title ?? event.title + ' — Guest Portal',
+        portal_title: settings.portal_title ?? event.title + ' â Guest Portal',
         hero_image_url: settings.hero_image_url, brand_color: settings.brand_color ?? '#7c3aed',
         welcome_message: (settings.welcome_message ?? 'Welcome, {{guest_name}}!').replace('{{guest_name}}', guest?.full_name?.split(' ')[0] ?? 'Guest'),
         footer_text: settings.footer_text, hide_powered_by: settings.hide_powered_by,
@@ -163,9 +163,8 @@ export class GuestPortalService {
     await this.supabase.serviceClient.from('guest_portal_messages').insert({ tenant_id: event.tenant_id, event_id: eventId, guest_id: guestId, mobile, message })
     return { sent: true }
   }
-}
 
-  // ── Section Data Methods ─────────────────────────────────────────────────────
+  // ââ Section Data Methods âââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
   async getItinerary(eventId: string) {
     const { data, error } = await this.supabase.serviceClient
