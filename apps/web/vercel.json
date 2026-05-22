@@ -1,6 +1,6 @@
 {
   "framework": "nextjs",
-  "buildCommand": "cd ../.. && npx -y pnpm@9.15.9 turbo build --filter=web",
+  "buildCommand": "cd ../.. && npx -y pnpm@9.15.9 turbo build --filter=@occasionpro/web",
   "outputDirectory": ".next",
   "installCommand": "cd ../.. && npx -y pnpm@9.15.9 install --no-frozen-lockfile",
   "headers": [
