@@ -1,0 +1,1 @@
+export { AuthGuard as TenantGuard } from '../../../common/guards/auth.guard'
