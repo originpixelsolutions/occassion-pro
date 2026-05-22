@@ -10,12 +10,13 @@ export async function getCurrentUserTenant(
   const { data: { user }, error } = await client.auth.getUser()
   if (error || !user) return null
 
-  const { data: profile } = await client
+  const result = await client
     .from('profiles')
     .select('tenant_id')
     .eq('id', user.id)
     .single()
 
+  const profile = result.data as { tenant_id: string } | null
   if (!profile) return null
 
   return { tenantId: profile.tenant_id, userId: user.id }
@@ -31,7 +32,7 @@ export async function getCurrentUserRole(
   const { data: { user } } = await client.auth.getUser()
   if (!user) return null
 
-  const { data } = await client
+  const result = await client
     .from('user_roles')
     .select('role')
     .eq('user_id', user.id)
@@ -40,7 +41,8 @@ export async function getCurrentUserRole(
     .limit(1)
     .single()
 
-  return data?.role ?? null
+  const row = result.data as { role: UserRole } | null
+  return row?.role ?? null
 }
 
 /**
