@@ -1,4 +1,3 @@
-import type { NextConfig } from 'next'
 import withPWAInit from '@ducanh2912/next-pwa'
 
 // ── Content Security Policy ────────────────────────────────────────────────
@@ -28,7 +27,7 @@ const CSP_DIRECTIVES = [
   "upgrade-insecure-requests",
 ].join('; ')
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ['@supabase/ssr'],
   },
