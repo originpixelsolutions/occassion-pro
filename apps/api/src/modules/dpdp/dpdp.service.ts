@@ -3,7 +3,7 @@ import { createHash } from 'crypto'
 import { SupabaseService } from '../../common/supabase/supabase.service'
 import { EmailService } from '../communications/email.service'
 
-// ─── DTOs ─────────────────────────────────────────────────────────────────────
+// âââ DTOs âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export type SubjectType   = 'guest' | 'team_member' | 'client' | 'vendor'
 export type ConsentType   = 'data_processing' | 'marketing_comms' | 'photo_sharing' | 'third_party_sharing'
@@ -31,7 +31,7 @@ export interface SubmitDataRequestDto {
   notes?:         string
 }
 
-// ─── Service ─────────────────────────────────────────────────────────────────
+// âââ Service âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 @Injectable()
 export class DpdpService {
@@ -42,7 +42,7 @@ export class DpdpService {
     private readonly emailService: EmailService,
   ) {}
 
-  // ── Helpers ────────────────────────────────────────────────────────────────
+  // ââ Helpers ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
   private hash(value: string): string {
     return createHash('sha256').update(value).digest('hex')
@@ -52,11 +52,11 @@ export class DpdpService {
     return this.supabase.serviceClient
   }
 
-  // ── Consent management ─────────────────────────────────────────────────────
+  // ââ Consent management âââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
   /**
    * Record an explicit consent event.
-   * IP and User-Agent are SHA-256 hashed before storage — raw PII never persisted.
+   * IP and User-Agent are SHA-256 hashed before storage â raw PII never persisted.
    */
   async recordConsent(dto: RecordConsentDto): Promise<void> {
     const client = this.serviceClient()
@@ -80,7 +80,7 @@ export class DpdpService {
       throw new Error(error.message)
     }
 
-    this.logger.debug(`Consent recorded: ${dto.subjectEmail} → ${dto.consentType} = ${dto.consentGiven}`)
+    this.logger.debug(`Consent recorded: ${dto.subjectEmail} â ${dto.consentType} = ${dto.consentGiven}`)
   }
 
   /**
@@ -105,11 +105,11 @@ export class DpdpService {
 
     if (error) throw new Error(error.message)
 
-    this.logger.log(`Consent withdrawn: ${email} → ${consentType}`)
+    this.logger.log(`Consent withdrawn: ${email} â ${consentType}`)
   }
 
   /**
-   * Returns a map of consent type → current status (true if active consent exists).
+   * Returns a map of consent type â current status (true if active consent exists).
    */
   async getConsentStatus(
     subjectEmail:  string,
@@ -141,7 +141,7 @@ export class DpdpService {
     return result as Record<ConsentType, boolean>
   }
 
-  // ── Data subject requests ──────────────────────────────────────────────────
+  // ââ Data subject requests ââââââââââââââââââââââââââââââââââââââââââââââââââ
 
   /**
    * Submit a data rights request. Sends a confirmation email to the requestor.
@@ -169,7 +169,7 @@ export class DpdpService {
     try {
       await this.emailService.sendEmail({
         to:      dto.requestorEmail,
-        subject: `Your data rights request has been received — ${reference}`,
+        subject: `Your data rights request has been received â ${reference}`,
         html: `
           <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#111">
             <h2 style="color:#6366f1">Data Rights Request Received</h2>
@@ -188,7 +188,7 @@ export class DpdpService {
         `,
       })
     } catch (emailErr) {
-      // Non-critical — request is still recorded
+      // Non-critical â request is still recorded
       this.logger.warn(`Confirmation email failed for ${dto.requestorEmail}: ${emailErr}`)
     }
 
@@ -309,7 +309,7 @@ export class DpdpService {
     try {
       await this.emailService.sendEmail({
         to:      email,
-        subject: 'Your personal data — access request fulfilled',
+        subject: 'Your personal data â access request fulfilled',
         html: `
           <div style="font-family:sans-serif;max-width:560px;margin:0 auto">
             <h2 style="color:#6366f1">Your Personal Data</h2>
@@ -362,7 +362,7 @@ export class DpdpService {
   }
 
   /**
-   * List data requests — for super admin panel.
+   * List data requests â for super admin panel.
    */
   async getDataRequests(filters: {
     tenantId?:    string
@@ -430,3 +430,5 @@ export class DpdpService {
       counts[row.status as RequestStatus] = (counts[row.status as RequestStatus] ?? 0) + 1
     }
     return counts
+  }
+}
