@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Patch, Delete, Param, Query, Body, Headers, UseGuards, HttpCode, HttpStatus } from '@nestjs/common'
 import { PrintingService } from './printing.service'
-import { AuthGuard } from '../auth/auth.guard'
+import { AuthGuard } from '../../common/guards/auth.guard'
 
 @Controller({ path: 'printing', version: '1' })
 @UseGuards(AuthGuard)

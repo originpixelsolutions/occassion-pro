@@ -3,7 +3,7 @@ import {
   UseGuards, Request, HttpCode, HttpStatus,
 } from '@nestjs/common'
 import { InvitationsService } from './invitations.service'
-import { AuthGuard } from '../auth/auth.guard'
+import { AuthGuard } from '../../common/guards/auth.guard'
 
 @Controller({ path: 'invitations', version: '1' })
 @UseGuards(AuthGuard)

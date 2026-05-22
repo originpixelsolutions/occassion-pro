@@ -13,7 +13,7 @@ import type { Response } from 'express'
 import { ConfigService } from '@nestjs/config'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { RolesGuard } from '../auth/guards/roles.guard'
-import { Roles } from '../auth/decorators/roles.decorator'
+import { Roles } from '../../common/decorators/roles.decorator'
 import { WhatsAppService } from './whatsapp.service'
 import { WhatsAppConnectionStatus } from './interfaces/whatsapp-provider.interface'
 

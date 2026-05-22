@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Patch, Delete, Param, Body, Headers, UseGuards, HttpCode, HttpStatus } from '@nestjs/common'
 import { SurveysService } from './surveys.service'
-import { AuthGuard } from '../auth/auth.guard'
+import { AuthGuard } from '../../common/guards/auth.guard'
 
 @Controller({ path: 'surveys', version: '1' })
 @UseGuards(AuthGuard)

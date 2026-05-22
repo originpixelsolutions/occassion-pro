@@ -2,8 +2,8 @@ import {
   Controller, Get, Post, Put, Delete, Patch, Body, Param,
   Query, Req, UseGuards, HttpCode, HttpStatus, BadRequestException,
 } from '@nestjs/common'
-import { JwtAuthGuard } from '../auth/jwt-auth.guard'
-import { TenantGuard } from '../auth/tenant.guard'
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
+import { TenantGuard } from '../auth/guards/tenant.guard'
 import { AutomationsService, CreateRuleDto } from './automations.service'
 
 @Controller('automations')

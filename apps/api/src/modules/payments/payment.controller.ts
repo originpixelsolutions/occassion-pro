@@ -3,7 +3,7 @@ import {
 } from '@nestjs/common'
 import { Request } from 'express'
 import { PaymentService } from './payment.service'
-import { AuthGuard } from '../auth/auth.guard'
+import { AuthGuard } from '../../common/guards/auth.guard'
 import { WorkspaceRoleGuard } from '../../common/guards/workspace-role.guard'
 import { RequireTenantRole } from '../../common/decorators/require-tenant-role.decorator'
 
