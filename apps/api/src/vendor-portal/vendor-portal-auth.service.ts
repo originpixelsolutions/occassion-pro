@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException, BadRequestException, NotFoundException } from '@nestjs/common'
 import { SupabaseService } from '../common/supabase/supabase.service'
-import * as bcrypt from 'bcrypt'
+import * as bcrypt from 'bcryptjs'
 import * as crypto from 'crypto'
 
 @Injectable()
