@@ -66,6 +66,7 @@
     "@aws-sdk/client-s3": "^3.600.0",
     "@aws-sdk/s3-request-presigner": "^3.600.0",
     "@keyv/redis": "^4.3.0",
+    "keyv": "^5.2.0",
     "xss": "^1.0.15",
     "archiver": "^7.0.1",
     "pdfkit": "^0.15.0",
@@ -91,6 +92,4 @@
     "ts-jest": "^29.2.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.5.0"
-  }
-}
+    "types
