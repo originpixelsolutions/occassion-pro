@@ -1,10 +1,10 @@
 /**
- * OccasionPro — Notifications Service
+ * OccasionPro â Notifications Service
  *
  * Central notification hub for all portals (team, client, vendor, guest).
  * Persists via Supabase, broadcasts real-time via Socket.io gateway.
  *
- * Multi-channel: in-app · email · SMS · WhatsApp · Expo push
+ * Multi-channel: in-app Â· email Â· SMS Â· WhatsApp Â· Expo push
  * Template engine: Handlebars (templates stored in notification_templates table)
  * Delivery log: notification_log table (immutable append-only)
  */
@@ -19,7 +19,7 @@ import { SMSService } from '../communications/sms.service'
 import { WhatsAppService } from '../communications/whatsapp.service'
 import * as Handlebars from 'handlebars'
 
-// ─── Enums / Literal Types ─────────────────────────────────────────────────────
+// âââ Enums / Literal Types âââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export type RecipientType = 'team' | 'guest' | 'client' | 'vendor'
 export type NotificationChannel = 'in_app' | 'email' | 'sms' | 'whatsapp' | 'push'
@@ -30,7 +30,7 @@ export type NotificationModule =
 export type NotificationUrgency = 'info' | 'warning' | 'critical'
 export type DeliveryStatus = 'queued' | 'sent' | 'delivered' | 'failed' | 'bounced' | 'skipped'
 
-// ─── Legacy DTO (preserved for backward compat) ────────────────────────────────
+// âââ Legacy DTO (preserved for backward compat) ââââââââââââââââââââââââââââââââ
 
 export interface CreateNotificationDto {
   tenant_id: string
@@ -70,7 +70,7 @@ export interface NotificationPreference {
   whatsapp_enabled: boolean
 }
 
-// ─── New Multi-Channel DTOs ────────────────────────────────────────────────────
+// âââ New Multi-Channel DTOs ââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 export interface SendNotificationOptions {
   tenantId: string
@@ -124,7 +124,7 @@ export interface NotificationLogFilters {
   recipientId?: string
 }
 
-// ─── Template → Category map ───────────────────────────────────────────────────
+// âââ Template â Category map âââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 const TEMPLATE_CATEGORY: Record<string, string> = {
   guest_rsvp_confirmed:      'guests',
@@ -159,7 +159,7 @@ const DEFAULT_CATEGORY_CHANNELS: Record<string, NotificationChannel[]> = {
   system:   ['in_app'],
 }
 
-// ─── Service ───────────────────────────────────────────────────────────────────
+// âââ Service âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 @Injectable()
 export class NotificationsService {
@@ -174,9 +174,9 @@ export class NotificationsService {
     @InjectQueue('notifications') private readonly notificationsQueue: Queue,
   ) {}
 
-  // ────────────────────────────────────────────────────────────────────────────
+  // ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
   // PUBLIC: Multi-channel send
-  // ────────────────────────────────────────────────────────────────────────────
+  // ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
   /**
    * Primary notification entry point.
@@ -184,7 +184,7 @@ export class NotificationsService {
    */
   async sendNotification(opts: SendNotificationOptions): Promise<void> {
     try {
-      // 1. Fetch template (tenant override → system fallback)
+      // 1. Fetch template (tenant override â system fallback)
       const template = await this.fetchTemplate(opts.templateKey, opts.tenantId)
       if (!template) {
         this.logger.warn(`No template found for key: ${opts.templateKey}`)
@@ -300,9 +300,9 @@ export class NotificationsService {
     this.logger.log(`Scheduled BullMQ reminders for event ${eventId}`)
   }
 
-  // ────────────────────────────────────────────────────────────────────────────
+  // ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
   // PUBLIC: Delivery log (super admin)
-  // ────────────────────────────────────────────────────────────────────────────
+  // ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
   async getNotificationLog(tenantId: string, filters: NotificationLogFilters = {}) {
     const page  = filters.page  ?? 1
@@ -328,9 +328,9 @@ export class NotificationsService {
     return { items: data ?? [], total: count ?? 0, page, limit }
   }
 
-  // ────────────────────────────────────────────────────────────────────────────
+  // ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
   // PUBLIC: Channel preferences (new schema)
-  // ────────────────────────────────────────────────────────────────────────────
+  // ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
   async getChannelPreferences(userId: string, tenantId: string) {
     const { data } = await this.supabase.serviceClient
@@ -363,9 +363,9 @@ export class NotificationsService {
     if (error) throw error
   }
 
-  // ────────────────────────────────────────────────────────────────────────────
-  // LEGACY: in-app only (backward compat — preserved as-is)
-  // ────────────────────────────────────────────────────────────────────────────
+  // ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+  // LEGACY: in-app only (backward compat â preserved as-is)
+  // ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
   /** @deprecated Use sendNotification() with templateKey instead */
   async send(payload: CreateNotificationDto): Promise<string | null> {
@@ -580,9 +580,9 @@ export class NotificationsService {
     }
   }
 
-  // ────────────────────────────────────────────────────────────────────────────
+  // ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
   // PRIVATE: Internals
-  // ────────────────────────────────────────────────────────────────────────────
+  // ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
   private async fetchTemplate(templateKey: string, tenantId: string) {
     // Try tenant-specific override first
@@ -635,7 +635,7 @@ export class NotificationsService {
       return DEFAULT_CATEGORY_CHANNELS[category] ?? ['in_app']
     }
 
-    // Check quiet hours — skip email/sms/whatsapp during quiet period
+    // Check quiet hours â skip email/sms/whatsapp during quiet period
     const inQuiet = this.isInQuietHours(
       prefs.quiet_hours_start,
       prefs.quiet_hours_end,
@@ -681,7 +681,7 @@ export class NotificationsService {
     const startMins = sh * 60 + sm
     const endMins   = eh * 60 + em
 
-    // Handle overnight range (e.g. 22:00 → 08:00)
+    // Handle overnight range (e.g. 22:00 â 08:00)
     if (startMins > endMins) {
       return nowMins >= startMins || nowMins <= endMins
     }
@@ -874,46 +874,3 @@ export class NotificationsService {
       data:  actionUrl ? { url: actionUrl } : {},
       channelId: 'default',
     }
-
-    const response = await fetch('https://exp.host/--/api/v2/push/send', {
-      method: 'POST',
-      headers: {
-        Accept:         'application/json',
-        'Content-Type': 'application/json',
-        'Accept-Encoding': 'gzip, deflate',
-      },
-      body: JSON.stringify(payload),
-    })
-
-    if (!response.ok) {
-      throw new Error(`Expo push failed: ${response.status} ${await response.text()}`)
-    }
-
-    const result = await response.json()
-    if (result.data?.status === 'error') {
-      throw new Error(`Expo push error: ${result.data.message}`)
-    }
-  }
-
-  private async logDelivery(params: {
-    tenantId:      string
-    recipientId:   string
-    recipientType: RecipientType
-    templateKey:   string
-    eventId:       string | null
-    channel:       NotificationChannel
-    status:        DeliveryStatus
-    errorMessage:  string | null
-    externalId:    string | null
-  }): Promise<void> {
-    try {
-      await this.supabase.serviceClient.from('notification_log').insert({
-        tenant_id:      params.tenantId,
-        recipient_id:   params.recipientId,
-        recipient_type: params.recipientType,
-        template_key:   params.templateKey,
-        event_id:       params.eventId,
-        channel:        params.channel,
-        status:         params.status,
-        error_message:  params.errorMessage,
-        external
