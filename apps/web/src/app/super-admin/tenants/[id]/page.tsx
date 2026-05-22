@@ -19,6 +19,7 @@ function getToken(): string {
     if (raw) return JSON.parse(raw)?.access_token ?? ''
   } catch {}
   return ''
+}
 
 function fmt(n: number | null | undefined) {
   if (n == null) return '—'

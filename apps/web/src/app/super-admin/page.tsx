@@ -16,6 +16,7 @@ function getToken(): string {
     if (raw) return JSON.parse(raw)?.access_token ?? ''
   } catch {}
   return ''
+}
 
 function fmt(n: number) {
   return new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(n)

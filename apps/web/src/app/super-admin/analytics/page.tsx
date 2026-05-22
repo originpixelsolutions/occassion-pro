@@ -11,6 +11,7 @@ function getToken(): string {
     if (raw) return JSON.parse(raw)?.access_token ?? ''
   } catch {}
   return ''
+}
 
 interface Analytics {
   signupTrend: Record<string, number>

@@ -11,6 +11,7 @@ function getToken(): string {
     if (raw) return JSON.parse(raw)?.access_token ?? ''
   } catch {}
   return ''
+}
 
 interface PlatformSettings {
   platform_name: string; support_email: string; max_file_size_mb: number

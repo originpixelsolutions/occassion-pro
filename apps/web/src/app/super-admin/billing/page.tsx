@@ -11,6 +11,7 @@ function getToken(): string {
     if (raw) return JSON.parse(raw)?.access_token ?? ''
   } catch {}
   return ''
+}
 
 interface Plan {
   id: string; name: string; display_name: string; price_monthly: number

@@ -62,6 +62,7 @@ function getToken(): string {
     if (raw) return JSON.parse(raw)?.access_token ?? ''
   } catch {}
   return ''
+}
 
 function getTenantId() {
   try { return localStorage.getItem('tenantId') ?? '' } catch { return '' }
