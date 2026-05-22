@@ -5,8 +5,7 @@ import {
 import { IntegrationsService } from './integrations.service'
 import { AuthGuard } from '../../common/guards/auth.guard'
 
-@Controller('integrations')
-@Version('1')
+@Controller({ path: 'integrations', version: '1' })
 @UseGuards(AuthGuard)
 export class IntegrationsController {
   constructor(private readonly svc: IntegrationsService) {}
